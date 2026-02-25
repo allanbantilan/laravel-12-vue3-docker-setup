@@ -57,12 +57,12 @@ const submit = () => {
             </section>
 
             <section
-                class="rounded-3xl border border-white/15 bg-white/95 p-6 shadow-2xl shadow-cyan-900/25 backdrop-blur sm:p-8"
+                class="rounded-3xl border border-white/20 bg-transparent p-6 shadow-2xl shadow-cyan-900/25 backdrop-blur sm:p-8"
             >
-                <h2 class="text-3xl font-black tracking-tight text-slate-900">
+                <h2 class="text-3xl font-black tracking-tight text-white">
                     Register account
                 </h2>
-                <p class="mt-2 text-sm text-slate-600">
+                <p class="mt-2 text-sm text-slate-300">
                     Set up your access to the starter dashboard.
                 </p>
 
@@ -70,7 +70,7 @@ const submit = () => {
                     <div>
                         <label
                             for="name"
-                            class="mb-1 block text-sm font-semibold text-slate-700"
+                            class="mb-1 block text-sm font-semibold text-slate-200"
                         >
                             Full name
                         </label>
@@ -81,7 +81,7 @@ const submit = () => {
                             required
                             autofocus
                             autocomplete="name"
-                            class="block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
+                            class="block w-full rounded-xl border border-white/25 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
                             placeholder="Your name"
                         />
                         <p
@@ -95,7 +95,7 @@ const submit = () => {
                     <div>
                         <label
                             for="email"
-                            class="mb-1 block text-sm font-semibold text-slate-700"
+                            class="mb-1 block text-sm font-semibold text-slate-200"
                         >
                             Email
                         </label>
@@ -105,7 +105,7 @@ const submit = () => {
                             type="email"
                             required
                             autocomplete="username"
-                            class="block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
+                            class="block w-full rounded-xl border border-white/25 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
                             placeholder="you@company.com"
                         />
                         <p
@@ -119,7 +119,7 @@ const submit = () => {
                     <div class="relative">
                         <label
                             for="password"
-                            class="mb-1 block text-sm font-semibold text-slate-700"
+                            class="mb-1 block text-sm font-semibold text-slate-200"
                         >
                             Password
                         </label>
@@ -130,13 +130,13 @@ const submit = () => {
                                 :type="showPassword ? 'text' : 'password'"
                                 required
                                 autocomplete="new-password"
-                                class="block w-full rounded-xl border border-slate-300 px-4 py-3 pr-12 text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
+                                class="block w-full rounded-xl border border-white/25 bg-white/5 px-4 py-3 pr-12 text-white placeholder:text-slate-400 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
                                 placeholder="At least 8 characters"
                             />
                             <button
                                 type="button"
                                 @click="showPassword = !showPassword"
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-800"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"
                                 :aria-label="
                                     showPassword
                                         ? 'Hide password'
@@ -192,7 +192,7 @@ const submit = () => {
                     <div class="relative">
                         <label
                             for="password_confirmation"
-                            class="mb-1 block text-sm font-semibold text-slate-700"
+                            class="mb-1 block text-sm font-semibold text-slate-200"
                         >
                             Confirm password
                         </label>
@@ -207,7 +207,7 @@ const submit = () => {
                                 "
                                 required
                                 autocomplete="new-password"
-                                class="block w-full rounded-xl border border-slate-300 px-4 py-3 pr-12 text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
+                                class="block w-full rounded-xl border border-white/25 bg-white/5 px-4 py-3 pr-12 text-white placeholder:text-slate-400 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
                                 placeholder="Repeat password"
                             />
                             <button
@@ -216,7 +216,7 @@ const submit = () => {
                                     showPasswordConfirmation =
                                         !showPasswordConfirmation
                                 "
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-800"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"
                                 :aria-label="
                                     showPasswordConfirmation
                                         ? 'Hide password confirmation'
@@ -271,10 +271,10 @@ const submit = () => {
 
                     <div
                         v-if="$page.props.jetstream.hasTermsAndPrivacyPolicyFeature"
-                        class="rounded-xl border border-slate-200 bg-slate-50 p-3"
+                        class="rounded-xl border border-white/20 bg-white/5 p-3"
                     >
                         <label
-                            class="inline-flex cursor-pointer items-start gap-2 text-sm text-slate-700"
+                            class="inline-flex cursor-pointer items-start gap-2 text-sm text-slate-200"
                         >
                             <input
                                 id="terms"
@@ -289,7 +289,7 @@ const submit = () => {
                                 <a
                                     target="_blank"
                                     :href="route('terms.show')"
-                                    class="font-semibold text-cyan-700 hover:text-cyan-800"
+                                    class="font-semibold text-cyan-300 hover:text-cyan-200"
                                 >
                                     Terms of Service
                                 </a>
@@ -297,7 +297,7 @@ const submit = () => {
                                 <a
                                     target="_blank"
                                     :href="route('policy.show')"
-                                    class="font-semibold text-cyan-700 hover:text-cyan-800"
+                                    class="font-semibold text-cyan-300 hover:text-cyan-200"
                                 >
                                     Privacy Policy
                                 </a>
@@ -321,11 +321,11 @@ const submit = () => {
                         }}
                     </button>
 
-                    <p class="text-center text-sm text-slate-600">
+                    <p class="text-center text-sm text-slate-300">
                         Already registered?
                         <Link
                             :href="route('login')"
-                            class="font-semibold text-cyan-700 hover:text-cyan-800"
+                            class="font-semibold text-cyan-300 hover:text-cyan-200"
                         >
                             Sign in now
                         </Link>

@@ -62,12 +62,12 @@ const submit = () => {
             </section>
 
             <section
-                class="rounded-3xl border border-white/15 bg-white/95 p-6 shadow-2xl shadow-cyan-900/25 backdrop-blur sm:p-8"
+                class="rounded-3xl border border-white/20 bg-transparent p-6 shadow-2xl shadow-cyan-900/25 backdrop-blur sm:p-8"
             >
-                <h2 class="text-3xl font-black tracking-tight text-slate-900">
+                <h2 class="text-3xl font-black tracking-tight text-white">
                     Sign in
                 </h2>
-                <p class="mt-2 text-sm text-slate-600">
+                <p class="mt-2 text-sm text-slate-300">
                     Access your project workspace.
                 </p>
 
@@ -82,7 +82,7 @@ const submit = () => {
                     <div class="relative">
                         <label
                             for="email"
-                            class="mb-1 block text-sm font-semibold text-slate-700"
+                            class="mb-1 block text-sm font-semibold text-slate-200"
                         >
                             Email
                         </label>
@@ -93,7 +93,7 @@ const submit = () => {
                             required
                             autofocus
                             autocomplete="username"
-                            class="block w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
+                            class="block w-full rounded-xl border border-white/25 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
                             placeholder="you@company.com"
                         />
                         <p
@@ -108,14 +108,14 @@ const submit = () => {
                         <div class="mb-1 flex items-center justify-between">
                             <label
                                 for="password"
-                                class="block text-sm font-semibold text-slate-700"
+                                class="block text-sm font-semibold text-slate-200"
                             >
                                 Password
                             </label>
                             <Link
                                 v-if="canResetPassword"
                                 :href="route('password.request')"
-                                class="text-sm font-medium text-cyan-700 hover:text-cyan-800"
+                                class="text-sm font-medium text-cyan-300 hover:text-cyan-200"
                             >
                                 Forgot password?
                             </Link>
@@ -127,13 +127,13 @@ const submit = () => {
                                 :type="showPassword ? 'text' : 'password'"
                                 required
                                 autocomplete="current-password"
-                                class="block w-full rounded-xl border border-slate-300 px-4 py-3 pr-12 text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
+                                class="block w-full rounded-xl border border-white/25 bg-white/5 px-4 py-3 pr-12 text-white placeholder:text-slate-400 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
                                 placeholder="Your password"
                             />
                             <button
                                 type="button"
                                 @click="showPassword = !showPassword"
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-800"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"
                                 :aria-label="
                                     showPassword
                                         ? 'Hide password'
@@ -187,7 +187,7 @@ const submit = () => {
                     </div>
 
                     <label
-                        class="inline-flex cursor-pointer items-center gap-2 text-sm text-slate-600"
+                        class="inline-flex cursor-pointer items-center gap-2 text-sm text-slate-300"
                     >
                         <input
                             v-model="form.remember"
@@ -210,7 +210,7 @@ const submit = () => {
                         New to the starter?
                         <Link
                             :href="route('register')"
-                            class="font-semibold text-cyan-700 hover:text-cyan-800"
+                            class="font-semibold text-cyan-300 hover:text-cyan-200"
                         >
                             Register account
                         </Link>
