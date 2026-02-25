@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
+import Navigation from "@/Components/Home/Navigation.vue";
 
 const page = usePage();
 const appName = computed(() => page.props.appName || "StarterKit");
@@ -26,12 +27,19 @@ const submit = () => {
     <Head title="Register" />
 
     <div class="relative min-h-screen overflow-hidden bg-slate-950">
+        <Navigation
+            :can-login="false"
+            :can-register="false"
+            :app-name="appName"
+            :hide-main-links="true"
+        />
+
         <div
             class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(34,211,238,0.2),transparent_38%),radial-gradient(circle_at_85%_16%,rgba(249,115,22,0.24),transparent_36%),radial-gradient(circle_at_50%_95%,rgba(132,204,22,0.22),transparent_42%)]"
         />
 
         <div
-            class="relative mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8"
+            class="relative mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-4 pb-10 pt-24 sm:px-6 lg:grid-cols-2 lg:px-8"
         >
             <section class="hidden text-white lg:block">
                 <p
@@ -40,12 +48,11 @@ const submit = () => {
                     {{ appName }}
                 </p>
                 <h1 class="text-5xl font-black leading-tight">
-                    Start your
-                    <span class="text-cyan-300">starter workspace.</span>
+                    This is a
+                    <span class="text-cyan-300">Laravel Starter Kit</span>
                 </h1>
                 <p class="mt-5 max-w-md text-base text-slate-200/85">
-                    Create an account and begin customizing this starter kit for
-                    your product.
+                    Create an account
                 </p>
             </section>
 

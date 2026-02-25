@@ -40,15 +40,14 @@ const emit = defineEmits(["scroll-to-features"]);
                     <span
                         class="bg-gradient-to-r from-cyan-400 to-orange-400 bg-clip-text text-transparent"
                     >
-                        With Vue 3 & Inertia.js
+                        With Docker and Vue 3
                     </span>
                 </h1>
                 <p
                     class="text-xl text-slate-200 mb-10 max-w-3xl mx-auto"
                 >
-                    Kickstart your Laravel projects with a powerful starter kit
-                    that combines the best of Vue 3 and Inertia.js for a
-                    seamless development experience.
+                    Kickstart your Laravel project with Docker and Vue 3 using
+                    Inertia.js. The Docker stack includes MySQL for the database.
                 </p>
             </div>
         </div>
