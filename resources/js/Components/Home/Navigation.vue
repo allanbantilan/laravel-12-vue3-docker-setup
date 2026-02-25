@@ -13,7 +13,7 @@ const props = defineProps({
     },
     appName: {
         type: String,
-        default: "Nexus",
+        default: "StarterKit",
     },
     hideMainLinks: {
         type: Boolean,
@@ -49,17 +49,17 @@ onUnmounted(() => {
         :class="[
             'fixed w-full z-50 transition-all duration-300',
             isScrolled
-                ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg'
+                ? 'bg-slate-950/85 backdrop-blur-md border-b border-white/10'
                 : 'bg-transparent',
         ]"
     >
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
                     <Link href="/" class="flex items-center space-x-2 group">
                         <div
-                            class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow"
+                            class="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow"
                         >
                             <svg
                                 class="w-6 h-6 text-white"
@@ -76,7 +76,7 @@ onUnmounted(() => {
                             </svg>
                         </div>
                         <span
-                            class="text-xl font-bold text-gray-900 dark:text-white"
+                            class="text-xl font-bold text-white"
                         >
                             {{ appName }}
                         </span>
@@ -91,21 +91,21 @@ onUnmounted(() => {
                     <div class="flex items-center space-x-8">
                         <button
                             @click="scrollToSection('features')"
-                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+                            class="text-slate-200 hover:text-cyan-300 font-medium transition-colors"
                         >
                             Features
                         </button>
                         <button
                             @click="scrollToSection('about')"
-                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+                            class="text-slate-200 hover:text-cyan-300 font-medium transition-colors"
                         >
-                            About
+                            Why It Works
                         </button>
                         <button
                             @click="scrollToSection('contact')"
-                            class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+                            class="text-slate-200 hover:text-cyan-300 font-medium transition-colors"
                         >
-                            Contact
+                            Support
                         </button>
                     </div>
                 </div>
@@ -115,16 +115,16 @@ onUnmounted(() => {
                     <Link
                         v-if="canLogin"
                         :href="route('login')"
-                        class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+                        class="text-slate-200 hover:text-cyan-300 font-medium transition-colors"
                     >
                         Sign In
                     </Link>
                     <Link
                         v-if="canRegister"
                         :href="route('register')"
-                        class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200"
+                        class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-6 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-200"
                     >
-                        Get Started
+                        Create Account
                     </Link>
                 </div>
 
@@ -132,7 +132,7 @@ onUnmounted(() => {
                 <button
                     v-if="!hideMainLinks"
                     @click="isMenuOpen = !isMenuOpen"
-                    class="md:hidden text-gray-700 dark:text-gray-300"
+                    class="md:hidden text-slate-200"
                 >
                     <svg
                         class="w-6 h-6"
@@ -161,45 +161,45 @@ onUnmounted(() => {
             <!-- Mobile Menu -->
             <div
                 v-if="isMenuOpen && !hideMainLinks"
-                class="md:hidden bg-white dark:bg-gray-800 shadow-lg rounded-lg mt-2 py-4"
+                class="md:hidden bg-slate-900 border border-white/10 shadow-lg rounded-lg mt-2 py-4"
             >
                 <div class="px-2 space-y-3">
                     <button
                         @click="scrollToSection('features')"
-                        class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                        class="block w-full text-left px-4 py-2 text-slate-200 hover:text-cyan-300 font-medium"
                     >
                         Features
                     </button>
                     <button
                         @click="scrollToSection('about')"
-                        class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                        class="block w-full text-left px-4 py-2 text-slate-200 hover:text-cyan-300 font-medium"
                     >
-                        About
+                        Why It Works
                     </button>
                     <button
                         @click="scrollToSection('contact')"
-                        class="block w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                        class="block w-full text-left px-4 py-2 text-slate-200 hover:text-cyan-300 font-medium"
                     >
-                        Contact
+                        Support
                     </button>
 
                     <!-- Auth links -->
                     <div
-                        class="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3"
+                        class="pt-4 border-t border-white/10 space-y-3"
                     >
                         <Link
                             v-if="canLogin"
                             :href="route('login')"
-                            class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium"
+                            class="block px-4 py-2 text-slate-200 hover:text-cyan-300 font-medium"
                         >
                             Sign In
                         </Link>
                         <Link
                             v-if="canRegister"
                             :href="route('register')"
-                            class="block px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium text-center"
+                            class="block px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-lg font-semibold text-center"
                         >
-                            Get Started
+                            Create Account
                         </Link>
                     </div>
                 </div>

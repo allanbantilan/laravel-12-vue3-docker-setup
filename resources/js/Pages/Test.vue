@@ -4,10 +4,6 @@ import { computed, onMounted } from "vue";
 import {
     Navigation,
     Hero,
-    Features,
-    About,
-    CTA,
-    Contact,
     Footer,
 } from "@/Components/Home";
 
@@ -34,7 +30,7 @@ onMounted(() => {
 const appName = computed(() => {
     const name = page.props.appName;
     console.log("DEBUG - Computed appName:", name);
-    return name || "Laravel";
+    return name || "StarterKit";
 });
 
 const scrollToSection = (sectionId) => {

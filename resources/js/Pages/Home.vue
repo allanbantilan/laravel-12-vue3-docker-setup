@@ -1,13 +1,8 @@
 <script setup>
 import { Head } from "@inertiajs/vue3";
-import { ref, computed } from "vue";
 import {
     Navigation,
     Hero,
-    Features,
-    About,
-    CTA,
-    Contact,
     Footer,
 } from "@/Components/Home";
 
@@ -20,7 +15,7 @@ const props = defineProps({
     },
     appName: {
         type: String,
-        default: "Nexus",
+        default: "StarterKit",
     },
 });
 
@@ -33,37 +28,22 @@ const scrollToSection = (sectionId) => {
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Starter Kit" />
 
-    <div class="min-h-screen bg-white dark:bg-gray-900">
+    <div class="min-h-screen bg-slate-950">
         <!-- Navigation -->
         <Navigation
             :can-login="canLogin"
             :can-register="canRegister"
             :app-name="appName"
+            :hide-main-links="true"
             @scroll-to-section="scrollToSection"
         />
 
         <!-- Hero Section -->
         <Hero
             :can-register="canRegister"
-            @scroll-to-features="scrollToSection('features')"
         />
-
-        <!-- Features Section -->
-        <Features />
-
-        <!-- About Section -->
-        <About />
-
-        <!-- CTA Section -->
-        <CTA
-            :can-register="canRegister"
-            @contact-click="scrollToSection('contact')"
-        />
-
-        <!-- Contact Section -->
-        <Contact />
 
         <!-- Footer -->
         <Footer :app-name="appName" />

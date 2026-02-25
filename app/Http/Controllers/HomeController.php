@@ -11,7 +11,7 @@ class HomeController extends Controller
         return Inertia::render('Home', [
             'canLogin' => true,
             'canRegister' => true,
-            'appName' => config('app.name', 'Nexus'),
+            'appName' => config('app.name', 'StarterKit'),
         ]);
     }
 }
