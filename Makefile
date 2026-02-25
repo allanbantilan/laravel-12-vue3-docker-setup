@@ -46,6 +46,9 @@ npm:
 test:
 	$(SAIL) artisan test
 
+# Run Laravel Pint
+pint:
+	$(SAIL) php ./vendor/bin/pint
 
 npm-dev:
 	$(SAIL) npm run dev

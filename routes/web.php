@@ -16,7 +16,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware([
-'auth:sanctum',
+    'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
