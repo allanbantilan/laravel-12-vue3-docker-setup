@@ -2,22 +2,23 @@
 
 A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Tailwind CSS. This template provides a solid foundation for building robust web applications with authentication, authorization, and API documentation out of the box.
 
-## 🚀 Features
+## Features
 
 - **Laravel 12** - The latest version of Laravel framework
-- **Vue 3** - Progressive JavaScript framework with Composition API
-- **Inertia.js** - Modern monolith architecture without API complexity
+- **Vue 3.5** - Progressive JavaScript framework with Composition API
+- **Inertia.js 3** - Modern monolith architecture without API complexity
 - **Jetstream** - Authentication scaffolding with team management
 - **Fortify** - Backend authentication implementation
 - **Spatie Permissions** - Role and permission management
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vite** - Lightning-fast build tool
+- **Tailwind CSS 4** - Utility-first CSS framework with CSS-first configuration
+- **Vite 6** - Lightning-fast build tool
 - **Sanctum** - API token authentication
 - **Swagger/OpenAPI** - API documentation with L5-Swagger
-- **Docker Support** - Containerized development environment
+- **Docker Support** - Containerized development environment with Redis, queue worker, and scheduler
 - **Ziggy** - Use Laravel named routes in Vue components
+- **ESLint & Prettier** - Code quality and formatting tools
 
-## 📋 Prerequisites
+## Prerequisites
 
 ### Required
 - **WSL 2** (Windows Subsystem for Linux) - For Windows users
@@ -26,12 +27,13 @@ A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Ta
 - **Make** (usually pre-installed in WSL)
 
 ### Included in Docker Container
-- PHP 8.2 or higher
+- PHP 8.4
 - Composer
-- Node.js 18+ and npm
-- MySQL/PostgreSQL database
+- Node.js 20+ and npm
+- MySQL 8.4
+- Redis 7
 
-## 🛠️ Installation
+## Installation
 
 ### Prerequisites Setup (Windows Users)
 
@@ -58,7 +60,7 @@ A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Ta
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd event-schedule-web
+   cd laravel-12-vue3-docker-setup
    ```
 
 2. **Copy environment file**
@@ -94,7 +96,7 @@ A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Ta
 
 8. **Start Vite development server**
    ```bash
-   make dev
+   make npm-dev
    ```
 
 9. **Access the application**
@@ -106,7 +108,7 @@ A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Ta
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd event-schedule-web
+   cd laravel-12-vue3-docker-setup
    ```
 
 2. **Install PHP dependencies**
@@ -145,7 +147,7 @@ A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Ta
    npm run dev
    ```
 
-## 🎯 Usage
+## Usage
 
 ### Available Make Commands
 
@@ -156,16 +158,20 @@ A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Ta
 | `make restart` | Restart Docker containers |
 | `make migrate` | Run database migrations |
 | `make migrate-refresh` | Refresh database and re-run migrations |
-| `make seed` | Seed the database |
 | `make tinker` | Open Laravel Tinker |
 | `make shell` | Enter container shell |
 | `make artisan cmd="command"` | Run Artisan command |
 | `make composer cmd="command"` | Run Composer command |
 | `make npm cmd="command"` | Run npm command |
-| `make dev` | Start Vite dev server |
-| `make build` | Build production assets |
+| `make npm-dev` | Start Vite dev server |
+| `make npm-build` | Build production assets |
 | `make test` | Run PHPUnit tests |
-| `make logs` | View container logs |
+| `make pint` | Run Laravel Pint (code formatting) |
+| `make pint-test` | Run Pint in test mode (dry run) |
+| `make lint` | Run ESLint |
+| `make format` | Run Prettier |
+| `make cache-clear` | Clear all caches |
+| `make optimize` | Optimize for production |
 
 ### Development Workflow
 
@@ -176,7 +182,7 @@ A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Ta
 wsl
 
 # Navigate to project
-cd ~/PersonalProjects/event-schedule-web
+cd ~/projects/laravel-12-vue3-docker-setup
 
 # Start containers using Makefile
 make up
@@ -185,23 +191,39 @@ make up
 make migrate
 
 # Start Vue dev server with hot reload using Makefile
-make dev
+make npm-dev
 
 # In another WSL terminal, view logs
-make logs
+make down
 ```
 
 ### Building for Production
 
 ```bash
 # Build optimized assets
-make build
+make npm-build
 
 # Or manually
 npm run build
 ```
 
-## 📁 Project Structure
+### Code Quality
+
+```bash
+# Format PHP code with Laravel Pint
+make pint
+
+# Check PHP code without modifying
+make pint-test
+
+# Lint JavaScript/Vue files
+make lint
+
+# Format JavaScript/Vue files
+make format
+```
+
+## Project Structure
 
 ```
 ├── app/
@@ -231,7 +253,7 @@ npm run build
 └── public/               # Public assets
 ```
 
-## 🔐 Authentication
+## Authentication
 
 This starter kit uses **Laravel Jetstream** with **Fortify** for authentication, providing:
 
@@ -246,7 +268,7 @@ This starter kit uses **Laravel Jetstream** with **Fortify** for authentication,
 
 Access authentication features at `/login`, `/register`, etc.
 
-## 🔑 Authorization
+## Authorization
 
 **Spatie Laravel Permission** is integrated for role and permission management:
 
@@ -272,18 +294,18 @@ if ($user->can('edit articles')) {
 </template>
 ```
 
-## 📚 API Documentation
+## API Documentation
 
 API documentation is available via **L5-Swagger**:
 
 1. Generate documentation:
    ```bash
-   php artisan l5-swagger:generate
+   make swagger
    ```
 
 2. Access Swagger UI at: `http://localhost/api/documentation`
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -299,7 +321,7 @@ php artisan test --filter=ExampleTest
 php artisan test --coverage
 ```
 
-## 🎨 Frontend Development
+## Frontend Development
 
 ### Using Inertia.js
 
@@ -350,9 +372,18 @@ const deleteUser = (userId) => {
 </script>
 ```
 
-## 🐳 Docker Configuration
+## Docker Configuration
 
 This application is designed to run with **Docker in WSL 2**. All Docker commands are managed through the **Makefile** for convenience.
+
+### Docker Services
+
+- **laravel.test** - Main PHP application server
+- **mysql** - MySQL 8.4 database
+- **redis** - Redis 7 for caching, sessions, and queues
+- **queue** - Background job processor
+- **scheduler** - Laravel task scheduler
+- **phpmyadmin** - Database management UI (port 8080)
 
 ### Docker Files
 
@@ -377,7 +408,7 @@ make composer cmd="install"
 
 ### WSL Integration
 
-The project path `\\wsl.localhost\Ubuntu\home\allan\PersonalProjects\event-schedule-web` shows this runs in WSL 2. Benefits:
+This project runs in WSL 2. Benefits:
 
 - Native Linux environment for Laravel
 - Better Docker performance
@@ -388,29 +419,37 @@ The project path `\\wsl.localhost\Ubuntu\home\allan\PersonalProjects\event-sched
 
 Customize `compose.yaml` and `docker-compose.override.yml` based on your infrastructure needs. The Makefile can also be extended with additional commands.
 
-## 📝 Environment Variables
+## Environment Variables
 
 Key environment variables to configure:
 
 ```env
-APP_NAME="Event Schedule"
+APP_NAME="Laravel"
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
 
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=
+DB_USERNAME=sail
+DB_PASSWORD=password
 
-MAIL_MAILER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
+REDIS_HOST=redis
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+QUEUE_CONNECTION=redis
+CACHE_STORE=redis
+SESSION_DRIVER=redis
+
+MAIL_MAILER=log
+MAIL_HOST=127.0.0.1
+MAIL_PORT=2525
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -418,11 +457,11 @@ MAIL_PORT=1025
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## 🆘 Support
+## Support
 
 For issues and questions:
 - Create an issue in the repository
@@ -430,7 +469,7 @@ For issues and questions:
 - Check Vue documentation: https://vuejs.org
 - Check Inertia.js documentation: https://inertiajs.com
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Laravel](https://laravel.com)
 - [Vue.js](https://vuejs.org)

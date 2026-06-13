@@ -46,9 +46,17 @@ npm:
 test:
 	$(SAIL) artisan test
 
-# Run Laravel Pint
+# Run Laravel Pint (code formatting)
 pint:
-	$(SAIL) php ./vendor/bin/pint
+	$(SAIL) pint
+
+# Run Pint with test mode (dry run)
+pint-test:
+	$(SAIL) pint --test
+
+# Run Pint on specific path
+pint-path:
+	$(SAIL) pint $(path)
 
 npm-dev:
 	$(SAIL) npm run dev
@@ -63,3 +71,25 @@ swagger:
 # Clean generated Swagger files
 swagger-clean:
 	$(SAIL) artisan l5-swagger:clean
+
+# Run ESLint
+lint:
+	$(SAIL) npm run lint
+
+# Run Prettier
+format:
+	$(SAIL) npm run format
+
+# Clear all caches
+cache-clear:
+	$(SAIL) artisan cache:clear
+	$(SAIL) artisan config:clear
+	$(SAIL) artisan route:clear
+	$(SAIL) artisan view:clear
+
+# Optimize for production
+optimize:
+	$(SAIL) artisan config:cache
+	$(SAIL) artisan route:cache
+	$(SAIL) artisan view:cache
+	$(SAIL) artisan event:cache
