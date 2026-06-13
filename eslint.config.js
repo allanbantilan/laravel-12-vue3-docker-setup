@@ -9,7 +9,12 @@ export default defineConfig([
         rules: {
             "vue/multi-word-component-names": "off",
             "vue/no-v-html": "off",
+            "vue/prefer-true-attribute-shorthand": "warn",
             "no-unused-vars": "warn",
+            "no-console": "warn",
+            "no-debugger": "error",
+            "no-alert": "warn",
+            eqeqeq: ["error", "always"],
             "vue/html-indent": ["warn", 4],
             "vue/max-attributes-per-line": "off",
         },

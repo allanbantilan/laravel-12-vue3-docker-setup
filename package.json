@@ -6,8 +6,18 @@
         "build": "vite build",
         "dev": "vite",
         "lint": "eslint resources/js --fix",
+        "lint:check": "eslint resources/js",
         "format": "prettier --write resources/js/**/*.{vue,js,ts}",
-        "lint:check": "eslint resources/js"
+        "prepare": "husky"
+    },
+    "lint-staged": {
+        "*.{vue,js,ts}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{css,scss}": [
+            "prettier --write"
+        ]
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
@@ -17,7 +27,9 @@
         "@vitejs/plugin-vue": "^6.0.7",
         "eslint": "^10.5.0",
         "eslint-plugin-vue": "^10.0.0",
+        "husky": "^9.1.0",
         "laravel-vite-plugin": "^3.1.0",
+        "lint-staged": "^15.2.0",
         "prettier": "^3.8.4",
         "tailwindcss": "^4.3.1",
         "vite": "^8.0.0"
