@@ -1,227 +1,243 @@
-# Laravel 12 Vue Starter Kit
+# Laravel 12 Vue 3 Starter Kit
 
-A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Tailwind CSS. This template provides a solid foundation for building robust web applications with authentication, authorization, and API documentation out of the box.
+A modern full-stack starter kit built with Laravel 12, Vue 3, Inertia.js, and Tailwind CSS. Production-ready Docker setup with authentication, authorization, and API documentation out of the box.
 
 ## Features
 
-- **Laravel 12** - The latest version of Laravel framework
-- **Vue 3.5** - Progressive JavaScript framework with Composition API
-- **Inertia.js 3** - Modern monolith architecture without API complexity
-- **Jetstream** - Authentication scaffolding with team management
-- **Fortify** - Backend authentication implementation
-- **Spatie Permissions** - Role and permission management
-- **Tailwind CSS 4** - Utility-first CSS framework with CSS-first configuration
-- **Vite 6** - Lightning-fast build tool
-- **Sanctum** - API token authentication
-- **Swagger/OpenAPI** - API documentation with L5-Swagger
-- **Docker Support** - Containerized development environment with Redis, queue worker, and scheduler
-- **Ziggy** - Use Laravel named routes in Vue components
-- **ESLint & Prettier** - Code quality and formatting tools
+- **Laravel 12** — Latest Laravel framework
+- **Vue 3.5** — Composition API with `<script setup>`
+- **Inertia.js 3** — Monolith architecture without API complexity
+- **Jetstream** — Authentication scaffolding with team management
+- **Fortify** — Backend authentication implementation
+- **Spatie Permissions** — Role and permission management
+- **Tailwind CSS 4** — CSS-first configuration
+- **Vite 8** — Lightning-fast build tool
+- **Sanctum** — API token authentication
+- **Swagger/OpenAPI** — API documentation with L5-Swagger
+- **Docker** — Containerized dev + production environments with health checks
+- **Ziggy** — Laravel named routes in Vue components
+- **ESLint & Prettier** — Code quality and formatting
+- **Larastan** — PHP static analysis
+- **Husky** — Pre-commit hooks for code quality
+- **Laravel Pulse** — Application performance monitoring
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend | Laravel 12, PHP 8.4 |
+| Frontend | Vue 3.5, Inertia.js 3 |
+| CSS | Tailwind CSS 4 |
+| Build | Vite 8 |
+| Database | MySQL 8.4 |
+| Cache/Queue | Redis 7 |
+| Auth | Laravel Jetstream + Fortify + Sanctum |
+| Permissions | Spatie Laravel Permission |
+| API Docs | L5-Swagger (OpenAPI) |
+| Static Analysis | Larastan (PHPStan) |
+| Monitoring | Laravel Pulse |
 
 ## Prerequisites
 
 ### Required
-- **WSL 2** (Windows Subsystem for Linux) - For Windows users
-- **Docker Desktop** with WSL 2 backend enabled
-- **Docker Compose**
-- **Make** (usually pre-installed in WSL)
+
+- **Docker Desktop** with Docker Compose v2
+- **Make** (pre-installed on macOS/Linux, available via `choco install make` on Windows)
 
 ### Included in Docker Container
+
 - PHP 8.4
 - Composer
 - Node.js 20+ and npm
 - MySQL 8.4
 - Redis 7
 
-## Installation
+## Quick Start
 
-### Prerequisites Setup (Windows Users)
+```bash
+# Clone the repository
+git clone <repository-url>
+cd laravel-12-vue3-docker-setup
 
-1. **Install WSL 2**
+# Copy environment file
+cp .env.example .env
+
+# Start containers and install dependencies
+make up
+make composer cmd="install"
+make npm cmd="install"
+make artisan cmd="key:generate"
+make migrate
+make npm-dev
+```
+
+Open [http://localhost](http://localhost) in your browser.
+
+## Platform-Specific Setup
+
+### Windows (WSL 2)
+
+1. **Install WSL 2** (run in PowerShell as Administrator):
    ```powershell
-   # Run in PowerShell as Administrator
    wsl --install
    ```
    Restart your computer after installation.
 
-2. **Install Docker Desktop**
-   - Download from https://www.docker.com/products/docker-desktop
-   - During installation, ensure "Use WSL 2 based engine" is enabled
-   - In Docker Desktop settings, go to Resources > WSL Integration
-   - Enable integration with your WSL distribution (Ubuntu)
+2. **Install Docker Desktop:**
+   - Download from [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+   - Enable "Use WSL 2 based engine" in settings
+   - Enable WSL integration with your distribution (Ubuntu)
 
-3. **Open WSL Terminal**
-   ```powershell
-   wsl
-   ```
+3. **Open WSL terminal** and follow the Quick Start above.
 
-### Docker Installation (Using Makefile)
+### macOS
 
-1. **Clone the repository**
+1. **Install Docker Desktop:**
+   - Download from [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+   - Or via Homebrew: `brew install --cask docker`
+
+2. **Install Make** (if not present):
    ```bash
-   git clone <repository-url>
-   cd laravel-12-vue3-docker-setup
+   xcode-select --install
    ```
 
-2. **Copy environment file**
+3. **Follow the Quick Start above.**
+
+### Linux
+
+1. **Install Docker Engine:**
    ```bash
-   cp .env.example .env
+   # Ubuntu/Debian
+   curl -fsSL https://get.docker.com | sh
+   sudo usermod -aG docker $USER
    ```
+   Log out and back in after adding yourself to the docker group.
 
-3. **Start Docker containers using Makefile**
+2. **Install Docker Compose:**
    ```bash
-   make up
+   sudo apt install docker-compose-plugin
    ```
-   This command uses the Makefile to start all Docker containers defined in compose.yaml.
 
-4. **Install PHP dependencies via Makefile**
+3. **Install Make:**
    ```bash
-   make composer cmd="install"
+   sudo apt install make
    ```
 
-5. **Install JavaScript dependencies via Makefile**
-   ```bash
-   make npm cmd="install"
-   ```
+4. **Follow the Quick Start above.**
 
-6. **Generate application key**
-   ```bash
-   make artisan cmd="key:generate"
-   ```
+## Docker Setup
 
-7. **Run migrations**
-   ```bash
-   make migrate
-   ```
+### Development
 
-8. **Start Vite development server**
-   ```bash
-   make npm-dev
-   ```
+```bash
+make up          # Start all containers
+make down        # Stop all containers
+make restart     # Restart all containers
+make shell       # Enter container shell
+make logs        # View all logs
+make logs-app    # View app logs only
+```
 
-9. **Access the application**
-   - Open your browser and navigate to `http://localhost`
-   - The application should now be running!
+### Production
 
-### Alternative: Manual Installation (Without Docker)
+Build and run the optimized production Docker image:
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd laravel-12-vue3-docker-setup
-   ```
+```bash
+make docker-build    # Build production image
+make docker-up       # Start with production config
+```
 
-2. **Install PHP dependencies**
-   ```bash
-   composer install
-   ```
+The production Dockerfile uses multi-stage builds:
+- **Stage 1:** Builds frontend assets with Node.js
+- **Stage 2:** PHP-FPM Alpine with OPcache, no dev dependencies
 
-3. **Install JavaScript dependencies**
-   ```bash
-   npm install
-   ```
+### Docker Services
 
-4. **Copy environment file**
-   ```bash
-   cp .env.example .env
-   ```
+| Service | Description | Port |
+|---------|-------------|------|
+| `laravel.test` | PHP application server | 80 |
+| `mysql` | MySQL 8.4 database | 3306 |
+| `redis` | Redis 7 (cache, sessions, queues) | 6379 |
+| `queue` | Background job processor | — |
+| `scheduler` | Laravel task scheduler | — |
+| `phpmyadmin` | Database management UI | 8080 |
 
-5. **Generate application key**
-   ```bash
-   php artisan key:generate
-   ```
+All services include health checks for reliable startup ordering.
 
-6. **Configure your database in `.env` file**
+## Available Make Commands
 
-7. **Run migrations**
-   ```bash
-   php artisan migrate
-   ```
-
-8. **Start the development servers**
-   ```bash
-   # Terminal 1: Laravel server
-   php artisan serve
-   
-   # Terminal 2: Vite dev server
-   npm run dev
-   ```
-
-## Usage
-
-### Available Make Commands
+### Docker
 
 | Command | Description |
 |---------|-------------|
 | `make up` | Start Docker containers |
 | `make down` | Stop Docker containers |
 | `make restart` | Restart Docker containers |
-| `make migrate` | Run database migrations |
-| `make migrate-refresh` | Refresh database and re-run migrations |
-| `make tinker` | Open Laravel Tinker |
 | `make shell` | Enter container shell |
+| `make redis-cli` | Open Redis CLI |
+| `make docker-build` | Build production Docker image |
+| `make docker-up` | Start with production config |
+
+### Database
+
+| Command | Description |
+|---------|-------------|
+| `make migrate` | Run database migrations |
+| `make migrate-refresh` | Refresh and re-run migrations |
+| `make seed` | Run database seeder |
+| `make fresh` | Fresh migrate + seed |
+
+### Development
+
+| Command | Description |
+|---------|-------------|
+| `make npm-dev` | Start Vite dev server |
+| `make npm-build` | Build production assets |
+| `make tinker` | Open Laravel Tinker |
 | `make artisan cmd="command"` | Run Artisan command |
 | `make composer cmd="command"` | Run Composer command |
 | `make npm cmd="command"` | Run npm command |
-| `make npm-dev` | Start Vite dev server |
-| `make npm-build` | Build production assets |
-| `make test` | Run PHPUnit tests |
-| `make pint` | Run Laravel Pint (code formatting) |
-| `make pint-test` | Run Pint in test mode (dry run) |
-| `make lint` | Run ESLint |
-| `make format` | Run Prettier |
-| `make cache-clear` | Clear all caches |
-| `make optimize` | Optimize for production |
-
-### Development Workflow
-
-**Important:** All commands should be run from within WSL terminal in the project directory.
-
-```bash
-# Open WSL terminal (from Windows)
-wsl
-
-# Navigate to project
-cd ~/projects/laravel-12-vue3-docker-setup
-
-# Start containers using Makefile
-make up
-
-# Run migrations using Makefile
-make migrate
-
-# Start Vue dev server with hot reload using Makefile
-make npm-dev
-
-# In another WSL terminal, view logs
-make down
-```
-
-### Building for Production
-
-```bash
-# Build optimized assets
-make npm-build
-
-# Or manually
-npm run build
-```
 
 ### Code Quality
 
-```bash
-# Format PHP code with Laravel Pint
-make pint
+| Command | Description |
+|---------|-------------|
+| `make pint` | Format PHP code (Laravel Pint) |
+| `make pint-test` | Check PHP formatting (dry run) |
+| `make phpstan` | Run Larastan static analysis |
+| `make phpstan-baseline` | Generate PHPStan baseline |
+| `make lint` | Lint JavaScript/Vue files |
+| `make lint-check` | Check lint without fixing |
+| `make format` | Format with Prettier |
+| `make quality` | Run all quality checks |
 
-# Check PHP code without modifying
-make pint-test
+### Testing
 
-# Lint JavaScript/Vue files
-make lint
+| Command | Description |
+|---------|-------------|
+| `make test` | Run PHPUnit tests |
+| `make test-coverage` | Run tests with coverage |
 
-# Format JavaScript/Vue files
-make format
-```
+### API Documentation
+
+| Command | Description |
+|---------|-------------|
+| `make swagger` | Generate Swagger docs |
+| `make swagger-clean` | Clean generated docs |
+
+### Cache & Optimization
+
+| Command | Description |
+|---------|-------------|
+| `make cache-clear` | Clear all caches |
+| `make optimize` | Optimize for production |
+
+### Logs
+
+| Command | Description |
+|---------|-------------|
+| `make logs` | View all container logs |
+| `make logs-app` | View app logs only |
 
 ## Project Structure
 
@@ -250,27 +266,27 @@ make format
 │   ├── web.php           # Web routes
 │   └── console.php       # Console commands
 ├── tests/                # Unit and feature tests
-└── public/               # Public assets
+├── Dockerfile            # Production Docker image
+├── compose.yaml          # Development Docker Compose
+├── docker-compose.prod.yml  # Production Docker Compose
+├── Makefile              # Convenience commands
+└── phpstan.neon          # Larastan configuration
 ```
 
-## Authentication
+## Authentication & Authorization
 
-This starter kit uses **Laravel Jetstream** with **Fortify** for authentication, providing:
+### Authentication
 
-- User registration
-- Login/Logout
+This starter kit uses **Laravel Jetstream** with **Fortify** for authentication:
+
+- User registration and login
 - Two-factor authentication
 - Email verification
-- Password reset
-- Password confirmation
+- Password reset and confirmation
 - API token management
 - Profile management
 
-Access authentication features at `/login`, `/register`, etc.
-
-## Authorization
-
-**Spatie Laravel Permission** is integrated for role and permission management:
+### Authorization (Spatie Permissions)
 
 ```php
 // Assign role to user
@@ -296,8 +312,6 @@ if ($user->can('edit articles')) {
 
 ## API Documentation
 
-API documentation is available via **L5-Swagger**:
-
 1. Generate documentation:
    ```bash
    make swagger
@@ -311,14 +325,36 @@ API documentation is available via **L5-Swagger**:
 # Run all tests
 make test
 
-# Or manually
-php artisan test
-
-# Run specific test file
-php artisan test --filter=ExampleTest
-
 # Run with coverage
-php artisan test --coverage
+make test-coverage
+
+# Run specific test
+make artisan cmd="test --filter=ExampleTest"
+```
+
+## Code Quality
+
+### Pre-commit Hooks
+
+Husky automatically runs lint-staged on every commit:
+- **Vue/JS/TS files:** ESLint + Prettier
+- **CSS files:** Prettier
+
+### Static Analysis
+
+```bash
+# Run Larastan
+make phpstan
+
+# Generate baseline (ignore current errors)
+make phpstan-baseline
+```
+
+### Manual Quality Checks
+
+```bash
+# Run all checks at once
+make quality
 ```
 
 ## Frontend Development
@@ -372,59 +408,12 @@ const deleteUser = (userId) => {
 </script>
 ```
 
-## Docker Configuration
-
-This application is designed to run with **Docker in WSL 2**. All Docker commands are managed through the **Makefile** for convenience.
-
-### Docker Services
-
-- **laravel.test** - Main PHP application server
-- **mysql** - MySQL 8.4 database
-- **redis** - Redis 7 for caching, sessions, and queues
-- **queue** - Background job processor
-- **scheduler** - Laravel task scheduler
-- **phpmyadmin** - Database management UI (port 8080)
-
-### Docker Files
-
-- **compose.yaml** - Main Docker Compose configuration
-- **docker-compose.override.yml** - Local development overrides
-- **Makefile** - Convenient commands to manage Docker containers
-
-### How It Works
-
-The Makefile wraps Docker Compose commands to simplify container management:
-
-```makefile
-# Instead of: docker-compose up -d
-make up
-
-# Instead of: docker-compose exec app php artisan migrate
-make migrate
-
-# Instead of: docker-compose exec app composer install
-make composer cmd="install"
-```
-
-### WSL Integration
-
-This project runs in WSL 2. Benefits:
-
-- Native Linux environment for Laravel
-- Better Docker performance
-- Seamless file system access from Windows
-- Full compatibility with Linux-based tools
-
-### Customization
-
-Customize `compose.yaml` and `docker-compose.override.yml` based on your infrastructure needs. The Makefile can also be extended with additional commands.
-
 ## Environment Variables
 
-Key environment variables to configure:
+Key environment variables to configure in `.env`:
 
 ```env
-APP_NAME="Laravel"
+APP_NAME="Your App"
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
@@ -437,37 +426,93 @@ DB_USERNAME=sail
 DB_PASSWORD=password
 
 REDIS_HOST=redis
-REDIS_PASSWORD=null
 REDIS_PORT=6379
 
 QUEUE_CONNECTION=redis
 CACHE_STORE=redis
 SESSION_DRIVER=redis
 
-MAIL_MAILER=log
-MAIL_HOST=127.0.0.1
-MAIL_PORT=2525
+LOG_CHANNEL=daily
+LOG_DAILY_DAYS=30
+
+PULSE_ENABLED=true
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Port already in use:**
+```bash
+# Change ports in .env
+APP_PORT=8080
+FORWARD_DB_PORT=3307
+FORWARD_REDIS_PORT=6380
+```
+
+**Permission issues with storage:**
+```bash
+make shell
+chmod -R 775 storage bootstrap/cache
+chown -R www:www storage bootstrap/cache
+```
+
+**Vite hot reload not working:**
+```bash
+make npm cmd="run dev"
+# Or restart containers
+make restart
+```
+
+### WSL-Specific Issues
+
+**Docker not starting in WSL:**
+```bash
+# Ensure Docker Desktop WSL integration is enabled
+# Settings > Resources > WSL Integration > Enable your distro
+```
+
+**File performance in WSL:**
+- Store project files in the WSL filesystem (`~/projects/`), not `/mnt/c/`
+- Docker Desktop > Settings > Resources > WSL Integration > Enable "Use the WSL 2 based engine"
+
+### Docker Issues
+
+**Containers not healthy:**
+```bash
+docker compose ps          # Check container status
+docker compose logs        # View logs for issues
+make down && make up       # Full restart
+```
+
+**MySQL connection refused:**
+```bash
+# Wait for MySQL health check to pass
+make up
+# Check health status
+docker compose ps
 ```
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+### Commit Convention
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
+- `feat:` — New feature
+- `fix:` — Bug fix
+- `docs:` — Documentation changes
+- `chore:` — Maintenance tasks
+- `refactor:` — Code refactoring
 
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Support
-
-For issues and questions:
-- Create an issue in the repository
-- Check Laravel documentation: https://laravel.com/docs
-- Check Vue documentation: https://vuejs.org
-- Check Inertia.js documentation: https://inertiajs.com
 
 ## Acknowledgments
 
