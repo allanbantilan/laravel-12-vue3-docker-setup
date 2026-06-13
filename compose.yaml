@@ -22,8 +22,16 @@ services:
         networks:
             - sail
         depends_on:
-            - mysql
-            - redis
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD-SHELL', 'curl -f http://localhost/ || exit 1']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 30s
 
     queue:
         build:
@@ -44,8 +52,16 @@ services:
         networks:
             - sail
         depends_on:
-            - mysql
-            - redis
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD-SHELL', 'php artisan queue:monitor --max-runtime=1 || exit 1']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 15s
         command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
 
     scheduler:
@@ -65,8 +81,16 @@ services:
         networks:
             - sail
         depends_on:
-            - mysql
-            - redis
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD-SHELL', 'pgrep -f "schedule:work" || exit 1']
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 10s
         command: php artisan schedule:work
 
     redis:
@@ -81,6 +105,7 @@ services:
             test: ['CMD', 'redis-cli', 'ping']
             retries: 3
             timeout: 5s
+            interval: 10s
 
     mysql:
         image: 'mysql:8.4'
@@ -107,6 +132,7 @@ services:
                 - '-p${DB_PASSWORD}'
             retries: 3
             timeout: 5s
+            interval: 10s
 
 networks:
     sail:
