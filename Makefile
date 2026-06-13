@@ -1,95 +1,99 @@
-# Makefile for Laravel Sail
+# Makefile for Laravel with Docker
 
-# Sail binary
-SAIL=./vendor/bin/sail
+# Docker compose command
+DC=docker compose
 
 # Start Docker containers
 up:
-	$(SAIL) up -d
+	$(DC) up -d
 
 # Stop Docker containers
 down:
-	$(SAIL) down
+	$(DC) down
 
 # Restart containers
 restart: down up
 
 # Open Laravel Tinker
 tinker:
-	$(SAIL) artisan tinker
+	$(DC) exec laravel.test php artisan tinker
 
-# Open a bash shell inside the Sail container
+# Open a bash shell inside the container
 shell:
-	$(SAIL) shell
+	$(DC) exec laravel.test bash
 
 # Run artisan migrate
 migrate:
-	$(SAIL) artisan migrate
+	$(DC) exec laravel.test php artisan migrate
 
 # Run artisan migrate with refresh
 migrate-refresh:
-	$(SAIL) artisan migrate:refresh
+	$(DC) exec laravel.test php artisan migrate:refresh
 
 # Run artisan commands
 artisan:
-	$(SAIL) artisan $(cmd)
+	$(DC) exec laravel.test php artisan $(cmd)
 
 # Run composer commands
 composer:
-	$(SAIL) composer $(cmd)
+	$(DC) exec laravel.test composer $(cmd)
 
 # Run npm commands
 npm:
-	$(SAIL) npm $(cmd)
+	$(DC) exec laravel.test npm $(cmd)
 
 # Run tests
 test:
-	$(SAIL) artisan test
+	$(DC) exec laravel.test php artisan test
 
 # Run Laravel Pint (code formatting)
 pint:
-	$(SAIL) pint
+	$(DC) exec laravel.test ./vendor/bin/pint
 
 # Run Pint with test mode (dry run)
 pint-test:
-	$(SAIL) pint --test
+	$(DC) exec laravel.test ./vendor/bin/pint --test
 
 # Run Pint on specific path
 pint-path:
-	$(SAIL) pint $(path)
+	$(DC) exec laravel.test ./vendor/bin/pint $(path)
 
 npm-dev:
-	$(SAIL) npm run dev
+	$(DC) exec laravel.test npm run dev
 
 npm-build:
-	$(SAIL) npm run build
+	$(DC) exec laravel.test npm run build
 
 # Generate Swagger/OpenAPI docs
 swagger:
-	$(SAIL) artisan l5-swagger:generate
+	$(DC) exec laravel.test php artisan l5-swagger:generate
 
 # Clean generated Swagger files
 swagger-clean:
-	$(SAIL) artisan l5-swagger:clean
+	$(DC) exec laravel.test php artisan l5-swagger:clean
 
 # Run ESLint
 lint:
-	$(SAIL) npm run lint
+	$(DC) exec laravel.test npm run lint
 
 # Run Prettier
 format:
-	$(SAIL) npm run format
+	$(DC) exec laravel.test npm run format
 
 # Clear all caches
 cache-clear:
-	$(SAIL) artisan cache:clear
-	$(SAIL) artisan config:clear
-	$(SAIL) artisan route:clear
-	$(SAIL) artisan view:clear
+	$(DC) exec laravel.test php artisan cache:clear
+	$(DC) exec laravel.test php artisan config:clear
+	$(DC) exec laravel.test php artisan route:clear
+	$(DC) exec laravel.test php artisan view:clear
 
 # Optimize for production
 optimize:
-	$(SAIL) artisan config:cache
-	$(SAIL) artisan route:cache
-	$(SAIL) artisan view:cache
-	$(SAIL) artisan event:cache
+	$(DC) exec laravel.test php artisan config:cache
+	$(DC) exec laravel.test php artisan route:cache
+	$(DC) exec laravel.test php artisan view:cache
+	$(DC) exec laravel.test php artisan event:cache
+
+# View logs
+logs:
+	$(DC) logs -f
