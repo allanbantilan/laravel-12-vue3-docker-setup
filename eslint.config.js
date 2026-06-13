@@ -10,6 +10,8 @@ export default defineConfig([
             "vue/multi-word-component-names": "off",
             "vue/no-v-html": "off",
             "no-unused-vars": "warn",
+            "vue/html-indent": ["warn", 4],
+            "vue/max-attributes-per-line": "off",
         },
         languageOptions: {
             globals: {
